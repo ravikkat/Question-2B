@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: securetokenapi
+spec:
+  selector:
+    matchLabels:
+      app: securetokenapi
+  template:
+    metadata:
+      labels:
+        app: securetokenapi
+    spec:
+      containers:
+      - name: securetokenapi
+        image: ravikkat/securetokenwebapi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: securetokenapi
+spec:
+  type: NodePort
+  selector:
+    app: securetokenapi
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 31500
+    name: "managementsecure"
+  
